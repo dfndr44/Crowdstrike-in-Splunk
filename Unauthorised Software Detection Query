@@ -1,9 +1,11 @@
-index=crowdstrike sourcetype=crowdstrike:discover:application report= "last_used_timestamp" ``` This is MacOs native VPN software```  "*vpn*" OR  "*torrent*" OR  "steam*" OR "*Mcafee" OR  "*AVAST*" OR  "*AVG*" OR  "*Telegram*"  
+index=crowdstrike sourcetype=crowdstrike:discover:application report= "last_used_timestamp" 
+```Look For```
+"*vpn*" OR  "*torrent*" OR  "steam*" OR "*Mcafee" OR  "*AVAST*" OR  "*AVG*" OR  "*Telegram*"  
 OR "*discord*" OR  "*Vine Server*" OR "*viber*" OR  "signal*"  OR "surfshark*" OR "utweb*" OR "ytd.exe" OR "fdm.exe" OR "wechat*" OR "free-mp4-mp3-converter-setup.exe" OR "dogecoin-qt.exe"
 OR "Wave Browser*" OR "bytefence*" OR "WebCompanion.exe"  OR "Synapse Launcher.exe"   OR "iCloud for Windows" OR "fdm.exe" OR "remoting_host*" OR "Razer*" OR "riot games*" 
 OR last_used_file_name= "dropbox.exe" OR last_used_file_name= "dropbox" OR "teamviewer*" OR "*whatsapp*" 
-| dedup id
-| search NOT (name= "<EDIT HERE with Company VPN or others>" ) ``` This is MacOs native VPN software```  AND NOT (last_used_file_name="VPN" AND os="Mac") 
+```Filter Out```
+NOT (name= "<EDIT HERE with Company VPN or others>" ) ``` This is MacOs native VPN software```  AND NOT (last_used_file_name="VPN" AND os="Mac") 
 | join type=left host.hostname ``` We are pulling host serial number here to tie it with the owner in the MDM```
     [search index= "crowdstrike" sourcetype="crowdstrike:endpoints"
     | rename hostname as host.hostname] 
